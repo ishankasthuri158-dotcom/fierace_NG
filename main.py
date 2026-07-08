@@ -9,6 +9,15 @@
 """
 from __future__ import annotations
 
+import sys
+
+if sys.platform == "win32":
+    # Windows' legacy console codepage (e.g. cp1252) can't encode the
+    # Unicode arrows/symbols used in log/table output; force UTF-8 so a
+    # scan doesn't crash mid-run on a stock Windows terminal.
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 import typer
 from rich.console import Console
 from rich.table import Table
