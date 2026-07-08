@@ -1,0 +1,96 @@
+.TH FIERCE-NG 1 "2026" "fierce-ng 0.2.0" "User Commands"
+.SH NAME
+fierce\-ng \- AI\-assisted DNS reconnaissance and attack\-surface mapping
+.SH SYNOPSIS
+.B fierce\-ng scan
+.I DOMAIN
+.RB [ \-\-mode
+.IR MODE ]
+.RB [ \-\-brute ]
+.RB [ \-\-ml ]
+.RB [ \-\-shodan ]
+.RB [ \-\-wordlist
+.IR FILE ]
+.RB [ \-\-out
+.IR DIR ]
+.RB [ \-\-diff
+.IR JSON ]
+.br
+.B fierce\-ng train
+.RI [ CORPUS ]
+.RI [ OUTPUT ]
+.br
+.B fierce\-ng version
+.SH DESCRIPTION
+.B fierce\-ng
+is a modern replacement for the classic \fBfierce\fR DNS reconnaissance tool.
+It blends passive OSINT (Certificate Transparency, Shodan) with active DNS
+enumeration under an explicit stealth budget, uses a lightweight character
+n\-gram model to predict likely subdomains beyond static wordlists, builds a
+property graph of the attack surface and assigns each finding a 0\-100 risk
+score. Every run emits a signed, reproducible manifest.
+.SH COMMANDS
+.TP
+.B scan
+Run a reconnaissance scan against \fIDOMAIN\fR and write JSON, CSV, HTML,
+GraphML and manifest artifacts to the output directory.
+.TP
+.B train
+Train the ML subdomain predictor on \fICORPUS\fR (one hostname/label per line,
+e.g. Rapid7 Project Sonar or SecLists). With no corpus, the built\-in seed
+list is used.
+.SH SCAN OPTIONS
+.TP
+.BI \-\-mode " MODE"
+One of \fBpassive\fR (OSINT only), \fBactive\fR (DNS only), \fBhybrid\fR
+(both; default) or \fBauto\fR (passive\-first, escalate if yield is low).
+.TP
+.B \-\-brute
+Enable subdomain brute\-force.
+.TP
+.B \-\-ml
+Use the ML predictor to rank/generate brute\-force candidates.
+.TP
+.B \-\-shodan
+Query Shodan (requires the \fBSHODAN_API_KEY\fR environment variable).
+.TP
+.BI \-\-wordlist " FILE"
+Use a custom wordlist instead of the built\-in list.
+.TP
+.BI \-\-qps " N"
+Maximum queries per second per resolver (default 10).
+.TP
+.BI \-\-jitter " SECONDS"
+Random additional delay between queries (default 0.15).
+.TP
+.BI \-\-out " DIR"
+Output directory (default \fBout\fR).
+.TP
+.BI \-\-diff " JSON"
+Compare against a previous scan's JSON export and alert on changes.
+.SH ENVIRONMENT
+.TP
+.B SHODAN_API_KEY
+API key for the optional Shodan collector.
+.TP
+.B FIERCE_NG_SIGNING_KEY
+HMAC key used to sign the run manifest for auditability.
+.SH EXAMPLES
+.TP
+Full AI\-assisted hybrid scan:
+.B fierce\-ng scan example.com \-\-mode hybrid \-\-brute \-\-ml
+.TP
+Low\-noise passive scan:
+.B fierce\-ng scan example.com \-\-mode passive
+.TP
+Continuous monitoring with alerting:
+.B fierce\-ng scan example.com \-\-diff out/example_com.json
+.SH ETHICS
+Only scan assets you own or are explicitly authorized to test. See
+.B /usr/share/doc/fierce\-ng/ETHICS.md .
+.SH AUTHOR
+G.I.K. Perera.
+.SH SEE ALSO
+.BR dig (1),
+.BR host (1),
+.BR amass (1)

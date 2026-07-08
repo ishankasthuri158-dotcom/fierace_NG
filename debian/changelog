@@ -1,0 +1,12 @@
+fierce-ng (0.2.0-1) unstable; urgency=medium
+
+  * Initial Debian package.
+  * DNS engine: A/AAAA/MX/NS/TXT/CAA/SRV, wildcard, AXFR, dangling-CNAME.
+  * Passive OSINT collectors: crt.sh (CT logs) and Shodan.
+  * Stealth orchestrator: resolver rotation, jitter, QPS caps, error back-off.
+  * ML predictor: character n-gram subdomain generation and ranking.
+  * Graph & risk layer with 0-100 scoring and GraphML/Neo4j export.
+  * Adaptive Recon Brain (passive/active/hybrid/auto).
+  * Exporters: JSON/CSV/HTML, diff/alerts, signed run manifest.
+
+ -- G.I.K. Perera <gikperera@example.com>  Thu, 02 Jul 2026 00:00:00 +0000

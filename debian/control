@@ -1,0 +1,29 @@
+Source: fierce-ng
+Section: net
+Priority: optional
+Maintainer: G.I.K. Perera <gikperera@example.com>
+Build-Depends: debhelper-compat (= 13),
+               dh-python,
+               python3-all,
+               python3-setuptools
+Standards-Version: 4.6.2
+Homepage: https://github.com/gikperera/fierce-ng
+Rules-Requires-Root: no
+
+Package: fierce-ng
+Architecture: all
+Depends: ${python3:Depends},
+         ${misc:Depends},
+         python3-dnspython,
+         python3-typer,
+         python3-rich,
+         python3-requests
+Description: AI-assisted DNS reconnaissance and attack-surface mapping
+ Fierce-NG is a modern replacement for the classic fierce DNS reconnaissance
+ tool. It blends passive OSINT (Certificate Transparency, Shodan) with active
+ DNS enumeration under an explicit stealth budget, uses a lightweight character
+ n-gram model to predict likely subdomains beyond static wordlists, builds a
+ property graph of the attack surface, and assigns each finding a 0-100 risk
+ score. Every run emits a signed, reproducible manifest.
+ .
+ Intended for authorized security testing and research only.

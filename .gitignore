@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+*.deb
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Fierce-NG runtime artifacts
+*.log
+out/
+scans/
+models/*.json.gz
+.cache/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Claude Code local settings (machine-specific)
+.claude/settings.local.json

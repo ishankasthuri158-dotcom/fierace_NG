@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fierce-ng"
+version = "0.2.0"
+description = "AI-assisted DNS reconnaissance and attack-surface mapping framework"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "G.I.K. Perera" }]
+keywords = ["dns", "reconnaissance", "osint", "security", "pentest", "attack-surface"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Security",
+    "Environment :: Console",
+    "Intended Audience :: Information Technology",
+]
+dependencies = [
+    "dnspython>=2.6",
+    "typer>=0.12",
+    "rich>=13.0",
+    "requests>=2.31",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.urls]
+Homepage = "https://github.com/gikperera/fierce-ng"
+
+[project.scripts]
+fierce-ng = "main:run"
+
+[tool.setuptools]
+py-modules = ["main", "benchmark"]
+
+[tool.setuptools.packages.find]
+include = ["collectors*", "dns_engine*", "stealth*", "ml_predictor*", "graph*", "exporters*", "core*"]
+exclude = ["tests*", "venv*", ".venv*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
