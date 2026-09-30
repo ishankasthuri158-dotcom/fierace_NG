@@ -2,6 +2,7 @@ from core.models import Host, ScanResult
 from dns_engine.engine import DNSEngine
 from graph.risk import RiskAssessor
 from graph.graph import AttackGraph
+from graph.view import graph_to_html, render_html
 from tests.conftest import FakeResolver
 
 
@@ -60,3 +61,16 @@ def test_graph_from_result():
     xml = g.to_graphml()
     assert xml.startswith("<?xml")
     assert "graphml" in xml
+
+
+def test_graph_html_viewer_embeds_nodes():
+    g = AttackGraph.from_result(_result_with_hosts())
+    html = graph_to_html(g, "demo")
+    assert html.startswith("<!doctype html>")
+    assert "admin.example.com" in html
+    assert "old-bucket.s3.amazonaws.com" in html
+
+
+def test_graph_html_viewer_escapes_script_close():
+    html = render_html({"nodes": [{"id": "</script><b>x", "type": "subdomain"}], "links": []})
+    assert "</script><b>x" not in html

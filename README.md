@@ -96,7 +96,20 @@ python main.py scan example.com --shodan
 ```
 
 Artifacts are written to `out/` (override with `--out`): `.json`, `.csv`,
-`.html` report, `.graphml` (+ `.graph.json`), and a signed `.manifest.json`.
+`.html` report, `.graphml` (+ `.graph.json`), an interactive `.graph.html`
+view of the attack graph, and a signed `.manifest.json`.
+
+### Viewing the attack graph
+
+Open `out/<domain>.graph.html` in any browser: nodes are coloured by type and
+risk, hover for details, drag nodes, scroll to zoom, drag the background to
+pan, and search to highlight hosts. It is a single offline file (no CDN). To
+(re)build it from an existing `.graph.json`, or to try it without scanning:
+
+```bash
+python -m graph.view out/example_com.graph.json   # writes + opens .graph.html
+python -m graph.view --demo                       # sample graph
+```
 
 ### Training the ML predictor
 

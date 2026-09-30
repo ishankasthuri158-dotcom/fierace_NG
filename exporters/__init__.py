@@ -35,6 +35,8 @@ def export_all(result, graph=None, outdir: str = "out", prefix: str | None = Non
     if graph is not None:
         _write("graphml", graph.to_graphml(), "graphml")
         _write("graph.json", graph.to_json(), "graph")
+        from graph.view import graph_to_html
+        _write("graph.html", graph_to_html(graph, f"Fierce-NG attack graph — {result.domain}"), "graph_view")
 
     return written
 
